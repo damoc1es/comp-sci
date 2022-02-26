@@ -1,0 +1,8 @@
+*.exe
+*.mkv
+.vscode
+sem1
+materials/
+lectures/
+seminars/
+recs/
