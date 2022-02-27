@@ -9,6 +9,6 @@ Public version of my repository that contains various things in regards to the c
 ## Semester 2
 <!-- - Algoritmica grafurilor [graph](sem2/graph) -->
 - Programare orientată obiect [oop](sem2/oop)
-<!-- - Sisteme dinamice [ds](sem2/ds) -->
+- Sisteme dinamice [ds](sem2/ds)
 <!-- - Sisteme de operare [os](sem2/os) -->
 <!-- - Structuri de date și algoritmi [dsa](sem2/dsa) -->
