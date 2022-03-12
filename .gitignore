@@ -1,8 +1,10 @@
 *.exe
 *.mkv
 .vscode
+.vs
 .idea
 __pycache__
+tempCodeRunnerFile*
 sem1
 materials/
 lectures/
