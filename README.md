@@ -7,8 +7,8 @@ Public version of my repository that contains various things in regards to the c
 - Fundamentele programării [fp](sem1/fp) -->
 
 ## Semester 2
-- Algoritmica grafurilor [graph](sem2/graph)
-- Programare orientată obiect [oop](sem2/oop)
-- Sisteme dinamice [ds](sem2/ds)
-- Sisteme de operare [os](sem2/os)
-- Structuri de date și algoritmi [dsa](sem2/dsa)
+- Algoritmica grafurilor [graph](sem2/graph) (C++)
+- Programare orientată obiect [oop](sem2/oop) (C/C++)
+- Sisteme dinamice [ds](sem2/ds) (Python)
+- Sisteme de operare [os](sem2/os) (C/Shell)
+- Structuri de date și algoritmi [dsa](sem2/dsa) (C++)
