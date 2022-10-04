@@ -1,7 +1,7 @@
 # cs-ubb 2021-ongoing [ro]
 
 ## About
-Public version of my repository that contains homeworks, projects and various tasks regarding my studies at the computer science program @ UBB. Although in romanian, it should be mostly code.
+Public version of my repository that contains homeworks, projects and various tasks regarding my studies at the computer science program @ UBB. Although in romanian, there should be mostly code.
 
 ## Contents
 <!--
@@ -12,7 +12,6 @@ Public version of my repository that contains homeworks, projects and various ta
 | III | Advanced Programming Methods [apm](sem3/apm) | Java & C# |
 | III | Functional and Logic Programming [flp](sem3/flp) | Prolog & CLisp |
 | III | Computer Networks [cn](sem3/cn) | - |
-| III | Probability and Statistics [ps](sem3/ps) | - |
 | III | Databases [db](sem3/db) | - | 
 -->
 | Semester | Discipline | Language |
@@ -20,3 +19,4 @@ Public version of my repository that contains homeworks, projects and various ta
 | II | Graph algorithms [graph](sem2/graph) | C++ |
 | II | Object oriented programming [oop](sem2/oop) | C/C++ |
 | II | Dynamical systems [ds](sem2/ds) | Python |
+| III | Probability and Statistics [ps](sem3/ps) | - |
