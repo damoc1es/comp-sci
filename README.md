@@ -11,12 +11,12 @@ Public version of my repository that contains homeworks, projects and various ta
 | II | Data structures and algorithms [dsa](sem2/dsa) | C++ |
 | III | Advanced Programming Methods [apm](sem3/apm) | Java & C# |
 | III | Functional and Logic Programming [flp](sem3/flp) | Prolog & CLisp |
-| III | Computer Networks [cn](sem3/cn) | - |
-| III | Databases [db](sem3/db) | - | 
+| III | Computer Networks [cn](sem3/cn) | C |
+| III | Databases [db](sem3/db) | SQL | 
 -->
 | Semester | Discipline | Language |
 | - | - | - |
 | II | Graph algorithms [graph](sem2/graph) | C++ |
 | II | Object oriented programming [oop](sem2/oop) | C/C++ |
 | II | Dynamical systems [ds](sem2/ds) | Python |
-| III | Probability and Statistics [ps](sem3/ps) | - |
+| III | Probability and Statistics [ps](sem3/ps) | MATLAB/Octave |
