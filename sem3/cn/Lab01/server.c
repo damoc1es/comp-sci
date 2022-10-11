@@ -37,16 +37,16 @@ int main() {
         printf("A client connected.\n");
 
         char str[100], rev[100];
-        memset(str, sizeof(str), 0);
-        memset(rev, sizeof(rev), 0);
+        memset(str, 0, sizeof(str));
+        memset(rev, 0, sizeof(rev));
         
-        recv(c, &str, sizeof(str), MSG_WAITALL);
+        recv(c, str, sizeof(str), MSG_WAITALL);
 
         for(int i=0; i<strlen(str); i++) {
             rev[strlen(str)-i-1] = str[i];
         }
 
-        send(c, &rev, sizeof(rev), 0);
+        send(c, rev, sizeof(rev), 0);
         close(c);
     }
 }

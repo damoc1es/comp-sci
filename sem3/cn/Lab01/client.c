@@ -27,14 +27,14 @@ int main() {
     }
     
     char str[100], rev[100];
-    memset(str, sizeof(str), 0);
-    memset(rev, sizeof(rev), 0);
+    memset(str, 0, sizeof(str));
+    memset(rev, 0, sizeof(rev));
     
     printf("str = ");
     scanf("%99[^\n]", &str);
     
-    send(c, &str, sizeof(str), 0);
-    recv(c, &rev, sizeof(rev), 0);
+    send(c, str, sizeof(str), 0);
+    recv(c, rev, sizeof(rev), 0);
     
     printf("The reversed string is: %s\n", rev);
     close(c);
