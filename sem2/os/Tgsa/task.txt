@@ -1,0 +1,11 @@
+1. Folosid comanda grep, afisati toate liniile din /etc/passwd care contin un nume de utilizator (este primul de pe linie)
+   (a nu se confunda cu numele complet al studentului) al carei lungime este mai mare de 8 caractere.
+
+2. Folosind comanda sed, stergeti toate literele dintr-un cuvant care sunt urmate de un grup de 2 cifre.
+   Ex: abcd12 abcde1234 => 12 abcde1234
+
+3. Folosind comanda awk, numarati cate linii dintr-un fisier incep cu o vocala si se termina cu o consoana
+   si cate linii incep cu o consoana si se termina cu o vocala.
+
+Timp de lucru: 15 minute
+OBS: Pentru fiecare dintre problemele de mai sus, creati cate un fisier shell care sa contina solutia.
