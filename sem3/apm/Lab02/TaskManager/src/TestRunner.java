@@ -1,6 +1,8 @@
 import model.MessageTask;
+import model.SortingTask;
 import runners.PrinterTaskRunner;
 import runners.StrategyTaskRunner;
+import utils.SortType;
 import utils.StrategyType;
 
 import java.time.LocalDateTime;
@@ -27,5 +29,10 @@ public class TestRunner {
         printerTaskRunner.addTask(tasks[1]);
         printerTaskRunner.addTask(tasks[2]);
         printerTaskRunner.executeAll();
+
+        SortingTask task = new SortingTask("69", "A sorting task", SortType.BUBBLE_SORT, new int[]{8, 5, 1, 5, 3, 64, 23});
+        SortingTask task2 = new SortingTask("69", "A sorting task", SortType.MERGE_SORT, new int[]{8, 5, 1, 5, 3, 64, 23});
+        task.execute();
+        task2.execute();
     }
 }
