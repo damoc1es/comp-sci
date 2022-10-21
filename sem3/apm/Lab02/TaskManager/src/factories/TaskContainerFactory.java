@@ -1,6 +1,7 @@
 package factories;
 
 import containers.Container;
+import containers.QueueContainer;
 import containers.StackContainer;
 import utils.StrategyType;
 
@@ -24,7 +25,7 @@ public class TaskContainerFactory implements Factory{
     public Container createContainer(StrategyType strategy) {
         return switch (strategy) {
             case LIFO -> new StackContainer();
-            case FIFO -> null;
+            case FIFO -> new QueueContainer();
         };
     }
 }
