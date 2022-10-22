@@ -9,7 +9,7 @@ public class DelayTaskRunner extends AbstractTaskRunner {
     @Override
     public void executeOneTask() {
         try {
-            Thread.sleep(500);
+            Thread.sleep(900);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

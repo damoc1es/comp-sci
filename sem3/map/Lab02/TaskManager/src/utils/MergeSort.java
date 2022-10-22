@@ -6,7 +6,7 @@ public class MergeSort implements AbstractSorter {
         mergeSort(arr, 0, arr.length-1);
     }
 
-    void merge(int[] arr, int l, int m, int r) {
+    private void merge(int[] arr, int l, int m, int r) {
         int n1 = m - l + 1;
         int n2 = r - m;
 

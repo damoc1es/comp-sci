@@ -4,5 +4,5 @@ import java.time.format.DateTimeFormatter;
 
 public class Constants {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
-    public static final int INITIAL_CONTAINER_SIZE = 3;
+    public static final int INITIAL_CONTAINER_SIZE = 1;
 }

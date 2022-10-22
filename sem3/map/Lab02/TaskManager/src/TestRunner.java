@@ -7,7 +7,6 @@ import utils.SortType;
 import utils.StrategyType;
 
 import java.time.LocalDateTime;
-import java.util.Scanner;
 
 public class TestRunner {
     private static MessageTask[] getMessages() {
@@ -20,20 +19,8 @@ public class TestRunner {
         return new MessageTask[]{m1, m2, m3, m4, m5};
     }
 
-    public static void run() {
+    public static void run(StrategyType strat) {
         MessageTask[] tasks = getMessages();
-
-        StrategyType strat;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter strategy {LIFO, FIFO}: ");
-        switch (scanner.nextLine().toUpperCase()) {
-            case "LIFO" -> strat = StrategyType.LIFO;
-            case "FIFO" -> strat = StrategyType.FIFO;
-            default -> {
-                System.out.println("Invalid, so it was defaulted to LIFO.");
-                strat = StrategyType.LIFO;
-            }
-        }
 
         PrinterTaskRunner printerTaskRunner = new PrinterTaskRunner(new StrategyTaskRunner(strat));
         for(int i=0; i<3; i++)
@@ -42,25 +29,13 @@ public class TestRunner {
         printerTaskRunner.executeAll();
     }
 
-    public static void runLaboratory() {
+    public static void runLab(StrategyType strat) {
         SortingTask task = new SortingTask("57", "A sorting task", SortType.BUBBLE_SORT, new int[]{8, 5, 1, 5, 3, 64, 23});
         SortingTask task2 = new SortingTask("52", "A sorting task", SortType.MERGE_SORT, new int[]{8, 5, 1, 5, 3, 64, 23});
         task.execute();
         task2.execute();
 
         MessageTask[] tasks = getMessages();
-
-        StrategyType strat;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter strategy {LIFO, FIFO}: ");
-        switch (scanner.nextLine().toUpperCase()) {
-            case "LIFO" -> strat = StrategyType.LIFO;
-            case "FIFO" -> strat = StrategyType.FIFO;
-            default -> {
-                System.out.println("Invalid, so it was defaulted to LIFO.");
-                strat = StrategyType.LIFO;
-            }
-        }
 
         PrinterTaskRunner printerTaskRunner = new PrinterTaskRunner(new DelayTaskRunner(new StrategyTaskRunner(strat)));
         for(int i=0; i<3; i++)

@@ -1,3 +1,4 @@
+import Entities.ComplexAddExpr;
 import Entities.ComplexExpression;
 import Entities.ComplexNumber;
 import Logic.ExpressionParser;
@@ -5,8 +6,6 @@ import Logic.ExpressionParser;
 import java.io.File;
 import java.util.Objects;
 import java.util.Scanner;
-
-import static Enums.OperationType.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,7 +20,7 @@ public class Main {
 
                 try {
                     ComplexExpression expr = ExpressionParser.parseExpression(line);
-                    System.out.println(expr.calculate());
+                    System.out.println(expr.execute());
                 } catch(Exception e) {
                     System.out.println(e.getMessage());
                 }
@@ -35,7 +34,7 @@ public class Main {
     }
 
     public static void tests() {
-        ComplexExpression expression = new ComplexExpression(ADDITION);
+        ComplexExpression expression = new ComplexAddExpr();
         expression.add(new ComplexNumber(2,3));
         expression.add(new ComplexNumber(5,-6));
         expression.add(new ComplexNumber(-2,1));
@@ -46,7 +45,7 @@ public class Main {
 
         try {
             String validExpression = "2+3*i + 5-6*i + -2+i";
-            assert Objects.equals(ExpressionParser.parseExpression(validExpression).calculate(), new ComplexNumber(5, -2));
+            assert Objects.equals(ExpressionParser.parseExpression(validExpression).execute(), new ComplexNumber(5, -2));
         } catch (Exception e) {
             assert false;
         }

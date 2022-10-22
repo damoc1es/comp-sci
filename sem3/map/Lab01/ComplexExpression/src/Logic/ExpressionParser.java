@@ -1,7 +1,6 @@
 package Logic;
 
-import Entities.ComplexExpression;
-import Entities.ComplexNumber;
+import Entities.*;
 import Enums.OperationType;
 
 import java.util.ArrayList;
@@ -51,7 +50,6 @@ public class ExpressionParser {
     public static ComplexExpression parseExpression(String validExpression) throws Exception {
         String[] strings = validExpression.split(" ");
         OperationType operation;
-
         switch (strings[1]) {
             case "+" -> operation = ADDITION;
             case "*" -> operation = MULTIPLY;
@@ -69,7 +67,6 @@ public class ExpressionParser {
         for(int i=0; i<strings.length; i+=2) {
             args.add(parseNumber(strings[i]));
         }
-
-        return new ComplexExpression(operation, args);
+        return ExpressionFactory.getInstance().createExpression(operation, args);
     }
 }

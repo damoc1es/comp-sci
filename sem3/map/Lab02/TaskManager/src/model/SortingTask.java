@@ -13,7 +13,6 @@ public class SortingTask extends Task {
 
     private void sort() {
         sorter.sort(list);
-
     }
 
     public SortingTask(String taskID, String description, SortType sortType, int[] list) {
