@@ -8,6 +8,10 @@ import java.util.*;
 public class Network {
     Map<UUID, List<UUID>> network;
 
+    /**
+     * @param friendshipList list of all friendships
+     * @param usersList list of all users
+     */
     public Network(List<Friendship> friendshipList, List<User> usersList) {
         network = new HashMap<>();
 
@@ -29,6 +33,11 @@ public class Network {
         }
     }
 
+    /**
+     * Visits every node from starting node and sets the value from map for every node
+     * @param visited map of every node and 0 if visited
+     * @param node starting node
+     */
     private void BFS(HashMap<UUID, Integer> visited, UUID node) {
         Queue<UUID> queue = new LinkedList<>();
         queue.add(node);
@@ -45,6 +54,10 @@ public class Network {
         }
     }
 
+    /**
+     * Figures out every connected component that represents a community
+     * @return list of all communities (list of IDs)
+     */
     public List<List<UUID>> getCommunities() {
         HashMap<UUID, Integer> visited = new HashMap<>();
         for(UUID id : network.keySet()) {
@@ -71,6 +84,10 @@ public class Network {
         return communities;
     }
 
+    /**
+     * Most social community = community with most friendships
+     * @return most social community (list of IDs)
+     */
     public List<UUID> getMostSocialCommunity() {
         List<List<UUID>> communities = getCommunities();
 

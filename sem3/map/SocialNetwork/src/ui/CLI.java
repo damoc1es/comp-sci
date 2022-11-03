@@ -14,6 +14,9 @@ import java.io.InputStreamReader;
 public class CLI {
     private final Service srv;
 
+    /**
+     * Prints menu
+     */
     public static void printMenu() {
         System.out.println("-----------------------");
         System.out.println("0 - Exit");
@@ -27,6 +30,10 @@ public class CLI {
         System.out.println();
     }
 
+    /**
+     * Reads string from stdin
+     * @return string
+     */
     public String readString() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -38,6 +45,10 @@ public class CLI {
         return "";
     }
 
+    /**
+     * Reads int from stdin
+     * @return int
+     */
     public int readInt() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -56,6 +67,9 @@ public class CLI {
         return -1;
     }
 
+    /**
+     * UI for adding an user
+     */
     public void addUser() {
         System.out.print("Name: ");
         String name = readString();
@@ -70,6 +84,9 @@ public class CLI {
         }
     }
 
+    /**
+     * UI for adding a friendship
+     */
     public void addFriend() {
         System.out.print("First user's handle: ");
         String handle1 = readString();
@@ -84,10 +101,16 @@ public class CLI {
         }
     }
 
+    /**
+     * Prints the number of communities
+     */
     public void nrOfCommunities() {
         System.out.println("Number of communities: " + srv.nrOfCommunities());
     }
 
+    /**
+     * Prints the most social community's users
+     */
     public void socialCommunity() {
         System.out.println("Most social community:");
         for(User user : srv.mostSocialCommunity()) {
@@ -96,12 +119,18 @@ public class CLI {
         System.out.println();
     }
 
+    /**
+     * Prints every user
+     */
     public void printUsers() {
         for(User user : srv.getUsers()) {
             System.out.println(user);
         }
     }
 
+    /**
+     * Prints every friendship
+     */
     public void printFriendships() {
         for(Friendship fr : srv.getFriendships()) {
             User user1 = srv.getUserByUUID(fr.getUserId1());
@@ -111,6 +140,9 @@ public class CLI {
         }
     }
 
+    /**
+     * Runs CLI
+     */
     public void run() {
         int x = 52;
         while(x != 0) {
@@ -132,6 +164,10 @@ public class CLI {
         }
     }
 
+    /**
+     * CLI constructor
+     * @param service service
+     */
     public CLI(Service service) {
         this.srv = service;
         try {

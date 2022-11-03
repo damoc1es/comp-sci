@@ -4,8 +4,15 @@ import domain.User;
 import domain.exception.ValidationException;
 
 public class UserValidator implements Validator<User> {
-    public void validate(User x) throws ValidationException {
-        String handle = x.getHandle();
+    /**
+     * Validates the user
+     * @param entity user to be validated
+     * @throws ValidationException handle contains spaces/anything other than letters, numbers and periods or handle's
+     * length is less than 3 or more than 30 characters
+     */
+    @Override
+    public void validate(User entity) throws ValidationException {
+        String handle = entity.getHandle();
 
         if(handle.contains(" ")) {
             throw new ValidationException("Handle can't contain spaces.");

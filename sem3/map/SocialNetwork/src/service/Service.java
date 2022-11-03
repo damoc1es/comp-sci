@@ -2,7 +2,6 @@ package service;
 
 import domain.Friendship;
 import domain.User;
-import domain.validators.UserValidator;
 import repository.Repository;
 import utils.Config;
 import domain.exception.DuplicatedException;
@@ -18,24 +17,38 @@ public class Service {
     Repository<User> userRepo;
     Repository<Friendship> friendsRepo;
 
-    UserValidator validator;
-
-    public Service(Repository<User> userRepo, Repository<Friendship> friendsRepo, UserValidator validator) {
+    /**
+     * Service constructor
+     * @param userRepo User repository
+     * @param friendsRepo Friendship repository
+     */
+    public Service(Repository<User> userRepo, Repository<Friendship> friendsRepo) {
         this.userRepo = userRepo;
         this.friendsRepo = friendsRepo;
-        this.validator = validator;
     }
 
+    /**
+     * Adds user with given name and handle
+     * @param name user's name
+     * @param handle user's handle
+     * @throws DuplicatedException if handle already exists
+     * @throws ValidationException if user isn't valid
+     */
     public void addUser(String name, String handle) throws DuplicatedException, ValidationException {
         User added = new User(name, handle);
-
-        validator.validate(added);
 
         if(getUserByHandle(handle) == null)
             userRepo.store(added);
         else throw new DuplicatedException("User with this handle already exists.");
     }
 
+    /**
+     * Adds friendship with given user's ids
+     * @param handle1 first user's handle
+     * @param handle2 second user's handle
+     * @throws NotFoundException if users with given handles don't exist
+     * @throws DuplicatedException if the users are already friends
+     */
     public void addFriendship(String handle1, String handle2) throws NotFoundException, DuplicatedException {
         List<User> list = userRepo.getList();
         UUID usr1=null, usr2=null;
@@ -62,13 +75,22 @@ public class Service {
                 friendsRepo.store(new Friendship(usr2, usr1));
         } catch(DuplicatedException exception) {
             throw new DuplicatedException("This friendship already exists.");
+        } catch (ValidationException ignored) {
         }
     }
 
+    /**
+     * @return list of all users
+     */
     public List<User> getUsers() {
         return userRepo.getList();
     }
 
+    /**
+     * Finds user by handle
+     * @param handle handle of user to be found
+     * @return the user or null if user wasn't found
+     */
     public User getUserByHandle(String handle) {
         for(User user : userRepo.getList()) {
             if(Objects.equals(user.getHandle(), handle))
@@ -77,6 +99,11 @@ public class Service {
         return null;
     }
 
+    /**
+     * Finds user by UUID
+     * @param id uuid of user to be found
+     * @return the user or null if user wasn't found
+     */
     public User getUserByUUID(UUID id) {
         for(User user : userRepo.getList()) {
             if(user.getId() == id)
@@ -85,11 +112,17 @@ public class Service {
         return null;
     }
 
+    /**
+     * @return number of existent communities
+     */
     public int nrOfCommunities() {
         Network network = new Network(friendsRepo.getList(), userRepo.getList());
         return network.getCommunities().size();
     }
 
+    /**
+     * @return list of users of most social community
+     */
     public List<User> mostSocialCommunity() {
         Network network = new Network(friendsRepo.getList(), userRepo.getList());
         List<User> userList = new ArrayList<>();
@@ -98,6 +131,9 @@ public class Service {
         return userList;
     }
 
+    /**
+     * @return list of all friendships
+     */
     public List<Friendship> getFriendships() {
         return friendsRepo.getList();
     }
