@@ -96,7 +96,7 @@ public class CLI {
         try {
             srv.addFriendship(handle1, handle2);
             System.out.println("Friendship added successfully.");
-        } catch (DuplicatedException | NotFoundException e) {
+        } catch (DuplicatedException | NotFoundException | ValidationException e) {
             System.out.println("Couldn't add the friendship. " + e.getMessage());
         }
     }

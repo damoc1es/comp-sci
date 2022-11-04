@@ -1,6 +1,6 @@
 import domain.Friendship;
 import domain.User;
-import domain.validators.NoValidator;
+import domain.validators.FriendshipValidator;
 import domain.validators.UserValidator;
 import repository.InMemoryRepo;
 import repository.Repository;
@@ -10,7 +10,7 @@ import ui.CLI;
 public class Main {
     public static void main(String[] args) {
         Repository<User> userRepo = new InMemoryRepo<>(new UserValidator());
-        Repository<Friendship> friendsRepo = new InMemoryRepo<>(new NoValidator<>());
+        Repository<Friendship> friendsRepo = new InMemoryRepo<>(new FriendshipValidator());
 
         Service service = new Service(userRepo, friendsRepo);
 

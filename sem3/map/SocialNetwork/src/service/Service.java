@@ -49,7 +49,7 @@ public class Service {
      * @throws NotFoundException if users with given handles don't exist
      * @throws DuplicatedException if the users are already friends
      */
-    public void addFriendship(String handle1, String handle2) throws NotFoundException, DuplicatedException {
+    public void addFriendship(String handle1, String handle2) throws NotFoundException, DuplicatedException, ValidationException {
         List<User> list = userRepo.getList();
         UUID usr1=null, usr2=null;
 
@@ -75,7 +75,6 @@ public class Service {
                 friendsRepo.store(new Friendship(usr2, usr1));
         } catch(DuplicatedException exception) {
             throw new DuplicatedException("This friendship already exists.");
-        } catch (ValidationException ignored) {
         }
     }
 
