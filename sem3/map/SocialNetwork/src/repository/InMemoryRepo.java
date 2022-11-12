@@ -1,13 +1,15 @@
 package repository;
 
+import domain.Entity;
 import domain.exception.DuplicatedException;
 import domain.exception.ValidationException;
 import domain.validators.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-public class InMemoryRepo<T> implements Repository<T> {
+public class InMemoryRepo<T extends Entity> implements Repository<T> {
     private final ArrayList<T> list;
     private final Validator<T> validator;
 
@@ -58,6 +60,37 @@ public class InMemoryRepo<T> implements Repository<T> {
             if(list.get(i).equals(oldObj))
                 list.set(i, newObj);
         }
+    }
+
+    /**
+     * Finds entity in repository
+     * @param uuid uuid of entity to be found
+     * @return the entity or null if it wasn't found
+     */
+    @Override
+    public T findByUUID(UUID uuid) {
+        for(T elem : list) {
+            if(elem.getId() == uuid)
+                return elem;
+        }
+        return null;
+    }
+
+    /**
+     * Filters the entities stored using custom function
+     * @param function filter function (returns boolean)
+     * @return list of entities that matched
+     */
+    @Override
+    public List<T> filterEntities(EntityFilterFunction function) {
+        List<T> filteredList = new ArrayList<>();
+
+        for(T elem : list) {
+            if(function.filter(elem))
+                filteredList.add(elem);
+        }
+
+        return filteredList;
     }
 
     /**

@@ -5,8 +5,9 @@ import domain.exception.ValidationException;
 
 public class FriendshipValidator implements Validator<Friendship> {
     /**
-     * Validator that doesn't throw anything
-     * @param entity entity to be validated
+     * Validates the Friendship
+     * @param entity friendship to be validated
+     * @throws ValidationException if the users are the same
      */
     @Override
     public void validate(Friendship entity) throws ValidationException {
