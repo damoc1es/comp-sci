@@ -5,12 +5,10 @@ import domain.exception.DuplicatedException;
 import domain.exception.ValidationException;
 import domain.validators.Validator;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class InMemoryRepo<T extends Entity> implements Repository<T> {
-    private final ArrayList<T> list;
+    private final Map<UUID, T> map;
     private final Validator<T> validator;
 
     /**
@@ -19,7 +17,7 @@ public class InMemoryRepo<T extends Entity> implements Repository<T> {
      */
     public InMemoryRepo(Validator<T> validator) {
         this.validator = validator;
-        list = new ArrayList<>();
+        map = new HashMap<>();
     }
 
     /**
@@ -32,12 +30,15 @@ public class InMemoryRepo<T extends Entity> implements Repository<T> {
     public void store(T obj) throws DuplicatedException, ValidationException {
         validator.validate(obj);
 
-        for(T elem : list) {
-            if(elem.equals(obj))
+        if(findByUUID(obj.getId()) != null)
+            throw new DuplicatedException("Can't store; found duplicate.");
+
+        for(Map.Entry<UUID, T> elem : map.entrySet()) {
+            if(elem.getValue().equals(obj))
                 throw new DuplicatedException("Can't store; found duplicate.");
         }
 
-        list.add(obj);
+        map.put(obj.getId(), obj);
     }
 
     /**
@@ -46,7 +47,7 @@ public class InMemoryRepo<T extends Entity> implements Repository<T> {
      */
     @Override
     public void remove(T obj) {
-        list.remove(obj);
+        map.remove(obj.getId());
     }
 
     /**
@@ -56,10 +57,8 @@ public class InMemoryRepo<T extends Entity> implements Repository<T> {
      */
     @Override
     public void update(T oldObj, T newObj) {
-        for(int i=0; i < list.size(); i++) {
-            if(list.get(i).equals(oldObj))
-                list.set(i, newObj);
-        }
+        map.remove(oldObj.getId());
+        map.put(newObj.getId(), newObj);
     }
 
     /**
@@ -69,11 +68,7 @@ public class InMemoryRepo<T extends Entity> implements Repository<T> {
      */
     @Override
     public T findByUUID(UUID uuid) {
-        for(T elem : list) {
-            if(elem.getId() == uuid)
-                return elem;
-        }
-        return null;
+        return map.get(uuid);
     }
 
     /**
@@ -85,9 +80,9 @@ public class InMemoryRepo<T extends Entity> implements Repository<T> {
     public List<T> filterEntities(EntityFilterFunction function) {
         List<T> filteredList = new ArrayList<>();
 
-        for(T elem : list) {
-            if(function.filter(elem))
-                filteredList.add(elem);
+        for(Map.Entry<UUID, T> elem : map.entrySet()) {
+            if(function.filter(elem.getValue()))
+                filteredList.add(elem.getValue());
         }
 
         return filteredList;
@@ -100,10 +95,11 @@ public class InMemoryRepo<T extends Entity> implements Repository<T> {
      */
     @Override
     public T find(T obj) {
-        for(T elem : list) {
-            if(elem.equals(obj))
-                return elem;
+        for(Map.Entry<UUID, T> elem : map.entrySet()) {
+            if(elem.getValue().equals(obj))
+                return elem.getValue();
         }
+
         return null;
     }
 
@@ -112,7 +108,7 @@ public class InMemoryRepo<T extends Entity> implements Repository<T> {
      */
     @Override
     public List<T> getList() {
-        return list;
+        return List.copyOf(map.values());
     }
 
     /**
@@ -120,6 +116,6 @@ public class InMemoryRepo<T extends Entity> implements Repository<T> {
      */
     @Override
     public int size() {
-        return list.size();
+        return map.size();
     }
 }
