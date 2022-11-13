@@ -54,9 +54,11 @@ public class InMemoryRepo<T extends Entity> implements Repository<T> {
      * Updates object from repository
      * @param oldObj old object
      * @param newObj updated object
+     * @throws ValidationException if newObj is not valid
      */
     @Override
-    public void update(T oldObj, T newObj) {
+    public void update(T oldObj, T newObj) throws ValidationException {
+        validator.validate(newObj);
         map.remove(oldObj.getId());
         map.put(newObj.getId(), newObj);
     }

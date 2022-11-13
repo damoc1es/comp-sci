@@ -22,10 +22,13 @@ public class CLI {
         System.out.println("0 - Exit");
         System.out.println("1 - Add User");
         System.out.println("2 - Add Friend");
-        System.out.println("3 - Show number of communities");
-        System.out.println("4 - Most social community");
-        System.out.println("5 - Show every User");
-        System.out.println("6 - Show every Friendship");
+        System.out.println("3 - Delete User");
+        System.out.println("4 - Remove Friend");
+        System.out.println("5 - Update User");
+        System.out.println("6 - Show number of communities");
+        System.out.println("7 - Most social community");
+        System.out.println("8 - Show every User");
+        System.out.println("9 - Show every Friendship");
         System.out.println("-----------------------");
         System.out.println();
     }
@@ -81,6 +84,57 @@ public class CLI {
             System.out.println("User added successfully.");
         } catch (DuplicatedException | ValidationException e) {
             System.out.println("Couldn't add the user. " + e.getMessage());
+        }
+    }
+
+    /**
+     * UI for deleting an user
+     */
+    public void deleteUser() {
+        System.out.print("Handle of deleted user: ");
+        String handle = readString();
+
+        try {
+            int k = srv.removeUser(handle);
+            System.out.printf("User deleted successfully. (along with %d friendships)%n", k);
+        } catch (NotFoundException e) {
+            System.out.println("Couldn't delete the user. " + e.getMessage());
+        }
+    }
+
+    /**
+     * UI for removing a friendship
+     */
+    public void removeFriendship() {
+        System.out.print("First user's handle: ");
+        String handle1 = readString();
+        System.out.print("Second user's handle: ");
+        String handle2 = readString();
+
+        try {
+            srv.removeFriendship(handle1, handle2);
+            System.out.println("Friendship removed successfully.");
+        } catch (NotFoundException e) {
+            System.out.println("Couldn't remove the friendship. " + e.getMessage());
+        }
+    }
+
+    /**
+     * UI for updating an user
+     */
+    public void updateUser() {
+        System.out.print("User's handle: ");
+        String oldHandle = readString();
+        System.out.print("User's new name: ");
+        String newName = readString();
+        System.out.print("User's new handle: ");
+        String newHandle = readString();
+
+        try {
+            srv.updateUser(oldHandle, newName, newHandle);
+            System.out.println("User updated successfully.");
+        } catch (NotFoundException | ValidationException e) {
+            System.out.println("Couldn't update the user. " + e.getMessage());
         }
     }
 
@@ -152,13 +206,16 @@ public class CLI {
             switch (x) {
                 case 1 -> addUser();
                 case 2 -> addFriend();
-                case 3 -> nrOfCommunities();
-                case 4 -> socialCommunity();
-                case 5 -> printUsers();
-                case 6 -> printFriendships();
+                case 3 -> deleteUser();
+                case 4 -> removeFriendship();
+                case 5 -> updateUser();
+                case 6 -> nrOfCommunities();
+                case 7 -> socialCommunity();
+                case 8 -> printUsers();
+                case 9 -> printFriendships();
                 default -> {
                     if(x != 0)
-                        System.out.println("Invalid command, must be between 0 and 4.");
+                        System.out.println("Invalid command, must be between 0 and 9.");
                 }
             }
         }

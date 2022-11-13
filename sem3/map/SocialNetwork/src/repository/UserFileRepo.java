@@ -81,7 +81,7 @@ public class UserFileRepo extends InMemoryRepo<User> {
     }
 
     @Override
-    public void update(User oldObj, User newObj) {
+    public void update(User oldObj, User newObj) throws ValidationException {
         super.update(oldObj, newObj);
         writeToFile();
     }

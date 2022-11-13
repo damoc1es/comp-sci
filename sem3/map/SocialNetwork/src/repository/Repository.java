@@ -12,7 +12,7 @@ public interface Repository<T extends Entity> {
 
     void remove(T obj);
 
-    void update(T oldObj, T newObj);
+    void update(T oldObj, T newObj) throws ValidationException;
 
     List<T> getList();
 

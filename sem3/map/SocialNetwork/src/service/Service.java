@@ -80,6 +80,83 @@ public class Service {
     }
 
     /**
+     * Removes user with specified handle
+     * @param handle handle of user to be removed
+     * @return how many friendship the user had (that were in turn, removed)
+     * @throws NotFoundException if no user with handle was found
+     */
+    public int removeUser(String handle) throws NotFoundException {
+        User user = getUserByHandle(handle);
+        if(user == null)
+            throw new NotFoundException("User with this handle not found.");
+
+        userRepo.remove(user);
+
+        List<Friendship> toBeDeleted = new ArrayList<>();
+
+        int k=0;
+        for(Friendship fr : friendsRepo.getList()) {
+            if(fr.getUserId1().equals(user.getId()) || fr.getUserId2().equals(user.getId())) {
+                toBeDeleted.add(fr);
+                k++;
+            }
+        }
+
+        for(Friendship fr : toBeDeleted) {
+            friendsRepo.remove(fr);
+        }
+
+        return k;
+    }
+
+    /**
+     * Removes friendship
+     * @param handle1 first user's handle
+     * @param handle2 second user's handle
+     * @throws NotFoundException if any user was not found
+     */
+    public void removeFriendship(String handle1, String handle2) throws NotFoundException {
+        User user1 = getUserByHandle(handle1);
+        User user2 = getUserByHandle(handle2);
+
+        if(user1 == null)
+            throw new NotFoundException("First user can't be found.");
+        if(user2 == null)
+            throw new NotFoundException("Second user can't be found.");
+
+        Friendship friendship = null;
+        for(Friendship fr : friendsRepo.getList()) {
+            if(fr.getUserId1().equals(user1.getId()) && fr.getUserId2().equals(user2.getId()))
+                friendship = fr;
+        }
+
+        if(friendship == null)
+            throw new NotFoundException("Friendship not found.");
+
+        friendsRepo.remove(friendship);
+    }
+
+    /**
+     * Updates the data of an user
+     * @param oldHandle old handle of user
+     * @param newName new name of user
+     * @param newHandle new handle of user
+     * @throws NotFoundException if user wasn't found
+     * @throws ValidationException if new data of user isn't valid
+     */
+    public void updateUser(String oldHandle, String newName, String newHandle) throws NotFoundException, ValidationException {
+        User user = getUserByHandle(oldHandle);
+
+        if(user == null)
+            throw new NotFoundException("User can't be found.");
+
+        User newUser = new User(newName, newHandle);
+        newUser.setId(user.getId());
+
+        userRepo.update(user, newUser);
+    }
+
+    /**
      * @return list of all users
      */
     public List<User> getUsers() {
@@ -105,11 +182,7 @@ public class Service {
      * @return the user or null if user wasn't found
      */
     public User getUserByUUID(UUID id) {
-        for(User user : userRepo.getList()) {
-            if(user.getId() == id)
-                return user;
-        }
-        return null;
+        return userRepo.findByUUID(id);
     }
 
     /**

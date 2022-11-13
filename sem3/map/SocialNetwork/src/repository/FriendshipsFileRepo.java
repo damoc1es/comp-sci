@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -82,7 +83,7 @@ public class FriendshipsFileRepo extends InMemoryRepo<Friendship>{
     }
 
     @Override
-    public void update(Friendship oldObj, Friendship newObj) {
+    public void update(Friendship oldObj, Friendship newObj) throws ValidationException {
         super.update(oldObj, newObj);
         writeToFile();
     }
