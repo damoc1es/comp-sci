@@ -170,21 +170,5 @@ public class CLI {
      */
     public CLI(Service service) {
         this.srv = service;
-        try {
-            srv.addUser("John Doe", "johndoe");
-            srv.addUser("Johanna Smith", "johannasmith");
-            srv.addFriendship("johndoe", "johannasmith");
-
-            srv.addUser("Mario", "mario");
-            srv.addUser("Luigi", "luigi");
-            srv.addUser("Bowser", "bowser");
-            srv.addFriendship("mario", "luigi");
-            srv.addFriendship("luigi", "bowser");
-            srv.addFriendship("bowser", "mario");
-
-            srv.addUser("Me", "myself");
-
-        } catch(DuplicatedException | NotFoundException | ValidationException ignore) {}
-
     }
 }

@@ -1,19 +1,30 @@
 package domain;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Friendship extends Entity {
     private final UUID userId1, userId2;
+    private final LocalDateTime friendsFrom;
+
+    /**
+     * friendsFrom getter
+     * @return date of friendship's start
+     */
+    public LocalDateTime getFriendsFrom() {
+        return friendsFrom;
+    }
 
     /**
      * Friendship constructor
      * @param id1 first user's id
      * @param id2 second user's id
      */
-    public Friendship(UUID id1, UUID id2) {
+    public Friendship(UUID id1, UUID id2, LocalDateTime friendsFrom) {
         userId1 = id1;
         userId2 = id2;
+        this.friendsFrom = friendsFrom;
         super.setId(UUID.randomUUID());
     }
 

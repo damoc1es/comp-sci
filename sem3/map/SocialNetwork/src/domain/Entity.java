@@ -1,9 +1,12 @@
 package domain;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
 public class Entity implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 52L;
     private UUID id;
 
     /**

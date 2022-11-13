@@ -8,6 +8,7 @@ import domain.exception.DuplicatedException;
 import domain.exception.NotFoundException;
 import domain.exception.ValidationException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -70,9 +71,9 @@ public class Service {
             throw new NotFoundException("Second user can't be found.");
 
         try {
-            friendsRepo.store(new Friendship(usr1, usr2));
+            friendsRepo.store(new Friendship(usr1, usr2, LocalDateTime.now()));
             if(!Config.ONE_SIDED_FRIENDSHIP)
-                friendsRepo.store(new Friendship(usr2, usr1));
+                friendsRepo.store(new Friendship(usr2, usr1, LocalDateTime.now()));
         } catch(DuplicatedException exception) {
             throw new DuplicatedException("This friendship already exists.");
         }
