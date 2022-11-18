@@ -2,6 +2,7 @@ package service;
 
 import domain.Friendship;
 import domain.User;
+import repository.EntityFilterFunction;
 import repository.Repository;
 import utils.Config;
 import domain.exception.DuplicatedException;
@@ -154,6 +155,46 @@ public class Service {
         newUser.setId(user.getId());
 
         userRepo.update(user, newUser);
+    }
+
+    /**
+     *
+     * @param oldHandle1 old handle of user1
+     * @param oldHandle2 old handle of user2
+     * @param newHandle1 new handle of user1
+     * @param newHandle2 new handle of user2
+     * @throws NotFoundException if any user wasn't found or friendship doesn't exist
+     * @throws ValidationException if new data for friendship isn't valid
+     */
+    public void updateFriendship(String oldHandle1, String oldHandle2, String newHandle1, String newHandle2) throws NotFoundException, ValidationException {
+        User oldUser1 = getUserByHandle(oldHandle1);
+        User oldUser2 = getUserByHandle(oldHandle2);
+        User newUser1 = getUserByHandle(newHandle1);
+        User newUser2 = getUserByHandle(newHandle2);
+
+        if(oldUser1 == null)
+            throw new NotFoundException("First (old) user can't be found.");
+        if(oldUser2 == null)
+            throw new NotFoundException("Second (old) user can't be found.");
+
+        if(newUser1 == null)
+            throw new NotFoundException("First (new) user can't be found.");
+        if(newUser2 == null)
+            throw new NotFoundException("Second (new) user can't be found.");
+
+        Friendship oldFriendship = null;
+        for(Friendship fr : friendsRepo.getList()) {
+            if(fr.getUserId1().equals(oldUser1.getId()) && fr.getUserId2().equals(oldUser2.getId()))
+                oldFriendship = fr;
+        }
+
+        if(oldFriendship == null)
+            throw new NotFoundException("Friendship not found.");
+
+
+        Friendship newFriendship = new Friendship(newUser1.getId(), newUser2.getId(), oldFriendship.getFriendsFrom());
+        newFriendship.setId(oldFriendship.getId());
+        friendsRepo.update(oldFriendship, newFriendship);
     }
 
     /**

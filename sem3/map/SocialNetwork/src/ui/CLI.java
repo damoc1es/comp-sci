@@ -28,10 +28,11 @@ public class CLI {
         System.out.println("3 - Delete User");
         System.out.println("4 - Remove Friend");
         System.out.println("5 - Update User");
-        System.out.println("6 - Show number of communities");
-        System.out.println("7 - Most social community");
-        System.out.println("8 - Show every User");
-        System.out.println("9 - Show every Friendship");
+        System.out.println("6 - Update Friendship");
+        System.out.println("7 - Show number of communities");
+        System.out.println("8 - Most social community");
+        System.out.println("9 - Show every User");
+        System.out.println("10 - Show every Friendship");
         System.out.println("-----------------------");
         System.out.println();
     }
@@ -119,6 +120,29 @@ public class CLI {
             System.out.println("Friendship removed successfully.");
         } catch (NotFoundException e) {
             System.out.println("Couldn't remove the friendship. " + e.getMessage());
+        }
+    }
+
+    /**
+     * UI for updating a friendship
+     */
+    public void updateFriendship() {
+        System.out.print("Old first user's handle: ");
+        String oldHandle1 = readString();
+        System.out.print("Old second user's handle: ");
+        String oldHandle2 = readString();
+
+
+        System.out.print("New first user's handle: ");
+        String newHandle1 = readString();
+        System.out.print("New second user's handle: ");
+        String newHandle2 = readString();
+
+        try {
+            srv.updateFriendship(oldHandle1, oldHandle2, newHandle1, newHandle2);
+            System.out.println("Friendship updated successfully.");
+        } catch (NotFoundException | ValidationException e) {
+            System.out.println("Couldn't update the friendship. " + e.getMessage());
         }
     }
 
@@ -212,10 +236,11 @@ public class CLI {
                 case 3 -> deleteUser();
                 case 4 -> removeFriendship();
                 case 5 -> updateUser();
-                case 6 -> nrOfCommunities();
-                case 7 -> socialCommunity();
-                case 8 -> printUsers();
-                case 9 -> printFriendships();
+                case 6 -> updateFriendship();
+                case 7 -> nrOfCommunities();
+                case 8 -> socialCommunity();
+                case 9 -> printUsers();
+                case 10 -> printFriendships();
                 default -> {
                     if(x != 0)
                         System.out.println("Invalid command, must be between 0 and 9.");
