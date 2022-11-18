@@ -10,6 +10,9 @@ import domain.exception.NotFoundException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.format.DateTimeFormatter;
+
+import static utils.Config.DATE_TIME_FORMATTER;
 
 public class CLI {
     private final Service srv;
@@ -190,7 +193,7 @@ public class CLI {
             User user1 = srv.getUserByUUID(fr.getUserId1());
             User user2 = srv.getUserByUUID(fr.getUserId2());
             if(user1 != null && user2 != null)
-                System.out.println(user1 + " is friends with " + user2);
+                System.out.println(user1 + " is friends with " + user2 + " [since " + fr.getFriendsFrom().format(DATE_TIME_FORMATTER) + "]");
         }
     }
 

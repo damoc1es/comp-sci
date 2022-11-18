@@ -13,6 +13,11 @@ public class UserValidator implements Validator<User> {
     @Override
     public void validate(User entity) throws ValidationException {
         String handle = entity.getHandle();
+        String name = entity.getName();
+
+        if(name.contains(";")) {
+            throw new ValidationException("Name can't contain semicolons.");
+        }
 
         if(handle.contains(" ")) {
             throw new ValidationException("Handle can't contain spaces.");
