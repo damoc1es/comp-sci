@@ -1,27 +1,27 @@
-package repository;
+package repository.file;
 
-import domain.Friendship;
+import domain.User;
 import domain.exception.DuplicatedException;
 import domain.exception.ValidationException;
 import domain.validators.Validator;
+import repository.InMemoryRepo;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public class FriendshipsFileRepo extends InMemoryRepo<Friendship>{
+public class UserFileRepo extends InMemoryRepo<User> {
     private final String filename;
 
     /**
      * Repository constructor
      * @param validator T validator
      */
-    public FriendshipsFileRepo(Validator<Friendship> validator, String filename) {
+    public UserFileRepo(Validator<User> validator, String filename) {
         super(validator);
         this.filename = filename;
         loadFromFile();
@@ -36,10 +36,10 @@ public class FriendshipsFileRepo extends InMemoryRepo<Friendship>{
             List<String> lines = Files.readAllLines(path);
             lines.forEach(line -> {
                 String[] l = line.split(";");
-                Friendship fr = new Friendship(UUID.fromString(l[1]), UUID.fromString(l[2]), LocalDateTime.parse(l[3]));
-                fr.setId(UUID.fromString(l[0]));
+                User usr = new User(l[1], l[2]);
+                usr.setId(UUID.fromString(l[0]));
                 try {
-                    super.store(fr);
+                    super.store(usr);
                 } catch (DuplicatedException | ValidationException ignore) {}
             });
         } catch (IOException e) {
@@ -52,17 +52,17 @@ public class FriendshipsFileRepo extends InMemoryRepo<Friendship>{
      */
     private void writeToFile() {
         Path path = Paths.get(filename);
-        List<Friendship> userList = super.getList();
+        List<User> userList = super.getList();
 
         try {
             Files.write(path, "".getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        userList.forEach(fr -> {
-            String frString = String.format("%s;%s;%s;%s\n", fr.getId(), fr.getUserId1(), fr.getUserId2(), fr.getFriendsFrom());
+        userList.forEach(user -> {
+            String userString = String.format("%s;%s;%s\n", user.getId(), user.getName(), user.getHandle());
             try {
-                Files.write(path, frString.getBytes(), StandardOpenOption.APPEND);
+                Files.write(path, userString.getBytes(), StandardOpenOption.APPEND);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -70,19 +70,19 @@ public class FriendshipsFileRepo extends InMemoryRepo<Friendship>{
     }
 
     @Override
-    public void store(Friendship obj) throws ValidationException, DuplicatedException {
+    public void store(User obj) throws ValidationException, DuplicatedException {
         super.store(obj);
         writeToFile();
     }
 
     @Override
-    public void remove(Friendship obj) {
+    public void remove(User obj) {
         super.remove(obj);
         writeToFile();
     }
 
     @Override
-    public void update(Friendship oldObj, Friendship newObj) throws ValidationException {
+    public void update(User oldObj, User newObj) throws ValidationException {
         super.update(oldObj, newObj);
         writeToFile();
     }
