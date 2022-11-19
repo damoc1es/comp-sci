@@ -1,0 +1,118 @@
+Complexity Metrics MAP,Sat, 19 Nov 2022 19:58:01 EET
+Method,CogC,v(G)
+Main.main(String[]),0,1
+domain.Entity.getId(),0,1
+domain.Entity.setId(UUID),0,1
+"domain.Friendship.Friendship(UUID, UUID, LocalDateTime)",0,1
+domain.Friendship.equals(Object),4,5
+domain.Friendship.getFriendsFrom(),0,1
+domain.Friendship.getUserId1(),0,1
+domain.Friendship.getUserId2(),0,1
+domain.Friendship.hashCode(),0,1
+"domain.User.User(String, String)",0,1
+domain.User.equals(Object),4,5
+domain.User.getHandle(),0,1
+domain.User.getName(),0,1
+domain.User.hashCode(),0,1
+domain.User.setHandle(String),0,1
+domain.User.setName(String),0,1
+domain.User.toString(),0,1
+domain.exception.DuplicatedException.DuplicatedException(String),0,1
+domain.exception.NotFoundException.NotFoundException(String),0,1
+domain.exception.SNException.SNException(String),0,1
+domain.exception.ValidationException.ValidationException(String),0,1
+domain.validators.FriendshipValidator.validate(Friendship),1,2
+domain.validators.UserValidator.validate(User),5,6
+repository.InMemoryRepo.InMemoryRepo(Validator<T>),0,1
+repository.InMemoryRepo.filterEntities(EntityFilterFunction),3,3
+repository.InMemoryRepo.find(T),3,3
+repository.InMemoryRepo.findByUUID(UUID),0,1
+repository.InMemoryRepo.getList(),0,1
+repository.InMemoryRepo.remove(T),0,1
+repository.InMemoryRepo.size(),0,1
+repository.InMemoryRepo.store(T),4,4
+"repository.InMemoryRepo.update(T, T)",0,1
+"repository.db.FriendshipDbRepo.FriendshipDbRepo(String, String, String, Validator<Friendship>)",0,1
+repository.db.FriendshipDbRepo.filterEntities(EntityFilterFunction),3,3
+repository.db.FriendshipDbRepo.find(Friendship),4,4
+repository.db.FriendshipDbRepo.findByUUID(UUID),4,4
+repository.db.FriendshipDbRepo.getList(),2,3
+repository.db.FriendshipDbRepo.remove(Friendship),1,2
+repository.db.FriendshipDbRepo.size(),1,2
+repository.db.FriendshipDbRepo.store(Friendship),1,2
+"repository.db.FriendshipDbRepo.update(Friendship, Friendship)",1,2
+"repository.db.UserDbRepo.UserDbRepo(String, String, String, Validator<User>)",0,1
+repository.db.UserDbRepo.filterEntities(EntityFilterFunction),3,3
+repository.db.UserDbRepo.find(User),4,4
+repository.db.UserDbRepo.findByUUID(UUID),4,4
+repository.db.UserDbRepo.getList(),2,3
+repository.db.UserDbRepo.remove(User),1,2
+repository.db.UserDbRepo.size(),1,2
+repository.db.UserDbRepo.store(User),1,2
+"repository.db.UserDbRepo.update(User, User)",1,2
+"repository.file.FriendshipFileRepo.FriendshipFileRepo(Validator<Friendship>, String)",0,1
+repository.file.FriendshipFileRepo.loadFromFile(),3,3
+repository.file.FriendshipFileRepo.remove(Friendship),0,1
+repository.file.FriendshipFileRepo.store(Friendship),0,1
+"repository.file.FriendshipFileRepo.update(Friendship, Friendship)",0,1
+repository.file.FriendshipFileRepo.writeToFile(),3,3
+"repository.file.UserFileRepo.UserFileRepo(Validator<User>, String)",0,1
+repository.file.UserFileRepo.loadFromFile(),3,3
+repository.file.UserFileRepo.remove(User),0,1
+repository.file.UserFileRepo.store(User),0,1
+"repository.file.UserFileRepo.update(User, User)",0,1
+repository.file.UserFileRepo.writeToFile(),3,3
+"service.Network.BFS(HashMap<UUID, Integer>, UUID)",6,4
+"service.Network.Network(List<Friendship>, List<User>)",6,5
+service.Network.getCommunities(),11,6
+service.Network.getMostSocialCommunity(),5,4
+"service.Service.Service(Repository<User>, Repository<Friendship>)",0,1
+"service.Service.addFriendship(String, String)",10,9
+"service.Service.addUser(String, String)",2,2
+service.Service.getFriendships(),0,1
+service.Service.getUserByHandle(String),3,3
+service.Service.getUserByUUID(UUID),0,1
+service.Service.getUsers(),0,1
+service.Service.mostSocialCommunity(),1,2
+service.Service.nrOfCommunities(),0,1
+"service.Service.removeFriendship(String, String)",7,7
+service.Service.removeUser(String),6,6
+"service.Service.updateFriendship(String, String, String, String)",9,9
+"service.Service.updateUser(String, String, String)",1,2
+ui.CLI.CLI(Service),0,1
+ui.CLI.addFriend(),1,2
+ui.CLI.addUser(),1,2
+ui.CLI.deleteUser(),1,2
+ui.CLI.nrOfCommunities(),0,1
+ui.CLI.printFriendships(),4,4
+ui.CLI.printMenu(),0,1
+ui.CLI.printUsers(),1,2
+ui.CLI.readInt(),4,4
+ui.CLI.readString(),1,2
+ui.CLI.removeFriendship(),1,2
+ui.CLI.run(),6,13
+ui.CLI.socialCommunity(),1,2
+ui.CLI.updateFriendship(),1,2
+ui.CLI.updateUser(),1,2
+
+Class,CBO,DIT,LCOM,WMC
+Main,10,1,1,1
+domain.Entity,11,1,1,2
+domain.Friendship,8,2,3,8
+domain.User,8,2,2,10
+domain.exception.DuplicatedException,8,4,0,1
+domain.exception.NotFoundException,3,4,0,1
+domain.exception.SNException,3,3,0,1
+domain.exception.ValidationException,11,4,0,1
+domain.validators.FriendshipValidator,4,1,1,2
+domain.validators.UserValidator,4,1,1,6
+repository.InMemoryRepo,8,1,1,16
+repository.db.FriendshipDbRepo,8,1,1,16
+repository.db.UserDbRepo,8,1,1,16
+repository.file.FriendshipFileRepo,6,2,1,6
+repository.file.UserFileRepo,6,2,1,6
+service.Network,4,1,1,19
+service.Service,11,1,1,41
+ui.CLI,6,1,1,22
+utils.Config,2,1,0,0
+
