@@ -2,7 +2,6 @@ package service;
 
 import domain.Friendship;
 import domain.User;
-import repository.EntityFilterFunction;
 import repository.Repository;
 import utils.Config;
 import domain.exception.DuplicatedException;
