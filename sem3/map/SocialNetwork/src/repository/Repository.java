@@ -18,6 +18,8 @@ public interface Repository<T extends Entity> {
 
     int size();
 
+    Iterable<T> findAll();
+
     T find(T obj);
 
     T findByUUID(UUID uuid);

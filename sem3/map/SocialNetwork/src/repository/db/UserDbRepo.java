@@ -8,9 +8,7 @@ import repository.EntityFilterFunction;
 import repository.Repository;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class UserDbRepo implements Repository<User> {
     private final String url;
@@ -112,6 +110,30 @@ public class UserDbRepo implements Repository<User> {
         }
 
         return 0;
+    }
+
+    @Override
+    public Iterable<User> findAll() {
+        Set<User> userSet = new HashSet<>();
+
+        try(Connection connection = DriverManager.getConnection(url, username, password);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users");
+            ResultSet resultSet = statement.executeQuery()) {
+
+            while(resultSet.next()) {
+                UUID id = UUID.fromString(resultSet.getString("id"));
+                String name = resultSet.getString("name");
+                String handle = resultSet.getString("handle");
+
+                User user = new User(name, handle);
+                user.setId(id);
+                userSet.add(user);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userSet;
     }
 
     @Override

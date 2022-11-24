@@ -9,9 +9,7 @@ import repository.Repository;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class FriendshipDbRepo implements Repository<Friendship> {
     private final String url;
@@ -116,6 +114,31 @@ public class FriendshipDbRepo implements Repository<Friendship> {
         }
 
         return 0;
+    }
+
+    @Override
+    public Iterable<Friendship> findAll() {
+        Set<Friendship> friendshipSet = new HashSet<>();
+
+        try(Connection connection = DriverManager.getConnection(url, username, password);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM friendships");
+            ResultSet resultSet = statement.executeQuery()) {
+
+            while(resultSet.next()) {
+                UUID id = UUID.fromString(resultSet.getString("id"));
+                UUID userId1 = UUID.fromString(resultSet.getString("userid1"));
+                UUID userId2 = UUID.fromString(resultSet.getString("userid2"));
+                LocalDateTime friendsFrom = LocalDateTime.parse(resultSet.getString("friendsfrom"));
+
+                Friendship friendship = new Friendship(userId1, userId2, friendsFrom);
+                friendship.setId(id);
+                friendshipSet.add(friendship);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return friendshipSet;
     }
 
     @Override

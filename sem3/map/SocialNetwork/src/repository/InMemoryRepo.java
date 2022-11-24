@@ -120,4 +120,9 @@ public class InMemoryRepo<T extends Entity> implements Repository<T> {
     public int size() {
         return map.size();
     }
+
+    @Override
+    public Iterable<T> findAll() {
+        return map.values();
+    }
 }
