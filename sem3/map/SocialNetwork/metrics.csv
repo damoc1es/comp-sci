@@ -1,4 +1,4 @@
-Complexity Metrics MAP,Sat, 19 Nov 2022 19:58:01 EET
+Complexity Metrics MAP,Fri, 25 Nov 2022 20:26:13 EET
 Method,CogC,v(G)
 Main.main(String[]),0,1
 domain.Entity.getId(),0,1
@@ -26,6 +26,7 @@ domain.validators.UserValidator.validate(User),5,6
 repository.InMemoryRepo.InMemoryRepo(Validator<T>),0,1
 repository.InMemoryRepo.filterEntities(EntityFilterFunction),3,3
 repository.InMemoryRepo.find(T),3,3
+repository.InMemoryRepo.findAll(),0,1
 repository.InMemoryRepo.findByUUID(UUID),0,1
 repository.InMemoryRepo.getList(),0,1
 repository.InMemoryRepo.remove(T),0,1
@@ -35,6 +36,7 @@ repository.InMemoryRepo.store(T),4,4
 "repository.db.FriendshipDbRepo.FriendshipDbRepo(String, String, String, Validator<Friendship>)",0,1
 repository.db.FriendshipDbRepo.filterEntities(EntityFilterFunction),3,3
 repository.db.FriendshipDbRepo.find(Friendship),4,4
+repository.db.FriendshipDbRepo.findAll(),2,3
 repository.db.FriendshipDbRepo.findByUUID(UUID),4,4
 repository.db.FriendshipDbRepo.getList(),2,3
 repository.db.FriendshipDbRepo.remove(Friendship),1,2
@@ -44,6 +46,7 @@ repository.db.FriendshipDbRepo.store(Friendship),1,2
 "repository.db.UserDbRepo.UserDbRepo(String, String, String, Validator<User>)",0,1
 repository.db.UserDbRepo.filterEntities(EntityFilterFunction),3,3
 repository.db.UserDbRepo.find(User),4,4
+repository.db.UserDbRepo.findAll(),2,3
 repository.db.UserDbRepo.findByUUID(UUID),4,4
 repository.db.UserDbRepo.getList(),2,3
 repository.db.UserDbRepo.remove(User),1,2
@@ -106,9 +109,9 @@ domain.exception.SNException,3,3,0,1
 domain.exception.ValidationException,11,4,0,1
 domain.validators.FriendshipValidator,4,1,1,2
 domain.validators.UserValidator,4,1,1,6
-repository.InMemoryRepo,8,1,1,16
-repository.db.FriendshipDbRepo,8,1,1,16
-repository.db.UserDbRepo,8,1,1,16
+repository.InMemoryRepo,8,1,1,17
+repository.db.FriendshipDbRepo,8,1,1,18
+repository.db.UserDbRepo,8,1,1,18
 repository.file.FriendshipFileRepo,6,2,1,6
 repository.file.UserFileRepo,6,2,1,6
 service.Network,4,1,1,19

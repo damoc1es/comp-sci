@@ -126,6 +126,9 @@ public class CLI {
      * UI for updating a friendship
      */
     public void updateFriendship() {
+        printFriendships();
+        System.out.println();
+
         System.out.print("Old first user's handle: ");
         String oldHandle1 = readString();
         System.out.print("Old second user's handle: ");
@@ -146,9 +149,12 @@ public class CLI {
     }
 
     /**
-     * UI for updating an user
+     * UI for updating a user
      */
     public void updateUser() {
+        printUsers();
+        System.out.println();
+
         System.out.print("User's handle: ");
         String oldHandle = readString();
         System.out.print("User's new name: ");
