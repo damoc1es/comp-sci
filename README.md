@@ -1,7 +1,7 @@
-# cs-ubb 2021-ongoing [ro]
+# cs.ubb 2021-ongoing [ro]
 
 ## About
-Public version of my repository that contains homeworks, projects and various tasks regarding my studies at the computer science program @ UBB. Although in romanian, there should be mostly code.
+Public version of my repository that contains homeworks, projects and various tasks regarding my studies at the computer science program @ BBU. Although in romanian, there should be mostly code.
 
 ## Contents
 <!--
@@ -16,8 +16,8 @@ Public version of my repository that contains homeworks, projects and various ta
 | - | - | - |
 | I | Computer Systems Architecture [csa](sem1/csa) | nasm |
 | II | Object-Oriented Programming [oop](sem2/oop) | C++ |
-| II | Operating Systems [os](sem2/os) | C/Shell |
+| II | Operating Systems [os](sem2/os) | C & Shell |
 | III | Advanced Programming Methods [map](sem3/map) | Java |
-| III | Functional and Logic Programming [flp](sem3/flp) | Prolog |
+| III | Functional and Logic Programming [flp](sem3/flp) | Prolog & Common Lisp |
 | III | Computer Networks [cn](sem3/cn) | C |
 | III | Probability and Statistics [ps](sem3/ps) | MATLAB/Octave |
