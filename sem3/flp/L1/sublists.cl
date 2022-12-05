@@ -1,9 +1,8 @@
 ; sublists(L: list)
-; modele de flux: (i) - determinist
 ; L - lista a carei subliste se returneaza
 (defun sublists(L)
     (cond
-        ((null L)        nil)
+        ((null L)        NIL)
         ((listp (car L)) (cons (car L) (append (sublists (car L)) (sublists (cdr L)))))
         (T               (sublists (cdr L)))
     )

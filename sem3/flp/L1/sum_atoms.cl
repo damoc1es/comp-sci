@@ -1,5 +1,4 @@
 ; sum_atoms(L: list)
-; modele de flux: (i) - determinist
 ; L - lista a carei numere se insumeaza
 (defun sum_atoms(L)
     (cond

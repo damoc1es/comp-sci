@@ -1,5 +1,4 @@
 ; intercal(L: list, elem: element, N: integer)
-; modele de flux: (i, i, i) - determinist
 ; L - lista in care se va adauga elementul
 ; elem - elementul adaugat
 ; N - pozitia pe care se adauga
