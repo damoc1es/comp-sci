@@ -14,4 +14,4 @@
 ; (substitutex '(A (A B C) (A B C (A B A))) 'A 'Y) => (Y (Y B C) (Y B C (Y B Y)))
 ; (substitutex '(A B C) 'A '(1 2 3)) => ((1 2 3) B C)
 ; (substitutex '(A (1 2 3) C) '(1 2 3) 'B) => (A B C)
-; (substitutex '(A B (1 2 3)) '2 'C) => (A B (1 C 3))
+; (substitutex '(A 2 (1 2 3)) '2 'C) => (A C (1 C 3))
