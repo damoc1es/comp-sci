@@ -3,27 +3,27 @@
 ### a) Să se adauge după fiecare element dintr-o listă divizorii elementului.
 
 $$
-\text{element\_divisors}(N, K) =
+\text{element⎽divisors}(N, K) =
 \begin{cases}
     \varnothing, & K \ge N \\
-    K \oplus \text{element\_divisors}(N, K+1) , & N \bmod K = 0 \\
-    \text{element\_divisors}(N, K+1), & \text{altfel}
+    K \oplus \text{element⎽divisors}(N, K+1) , & N \bmod K = 0 \\
+    \text{element⎽divisors}(N, K+1), & \text{altfel}
 \end{cases}
 $$
 
 $$
-\text{element\_divisors\_W}(N) =
+\text{element⎽divisors⎽W}(N) =
 \begin{cases}
-    \text{element\_divisors}(-N, 2), & N < 0 \\
-    \text{element\_divisors}(N, 2), & \text{altfel}
+    \text{element⎽divisors}(-N, 2), & N < 0 \\
+    \text{element⎽divisors}(N, 2), & \text{altfel}
 \end{cases}
 $$
 
 $$
-\text{list\_divisors}(l_1 \, l_2 \dots l_n) =
+\text{list⎽divisors}(l_1 \, l_2 \dots l_n) =
 \begin{cases}
     \varnothing, & n = 0 \\
-    l_1 \oplus \text{my\_append}(\text{element\_divisors\_W}(l_1), \text{list\_divisors}(l_2 \dots l_n)), & \text{altfel}
+    l_1 \oplus \text{my⎽append}(\text{element⎽divisors⎽W}(l_1), \text{list⎽divisors}(l_2 \dots l_n)), & \text{altfel}
 \end{cases}
 $$
 
@@ -34,10 +34,10 @@ ex.: \
 `[1, [2, 5, 7], 4, 5, [1, 4, 2], 3, 2, [6, 2, 3, 2, 1], 4, [7, 2, 8, 2, 4, 1], 2]`.
 
 $$
-\text{sublist\_divisors}(l_1 \, l_2 \dots l_n) =
+\text{sublist⎽divisors}(l_1 \, l_2 \dots l_n) =
 \begin{cases}
     \varnothing, & n = 0 \\
-    \text{list\_divisors}(l_1) \oplus \text{sublist\_divisors}(l_2 \dots l_n), & l_1 - \text{list} \\
-    l_1 \oplus \text{sublist\_divisors}(l_2 \dots l_n), & \text{altfel}
+    \text{list⎽divisors}(l_1) \oplus \text{sublist⎽divisors}(l_2 \dots l_n), & l_1 - \text{list} \\
+    l_1 \oplus \text{sublist⎽divisors}(l_2 \dots l_n), & \text{altfel}
 \end{cases}
 $$

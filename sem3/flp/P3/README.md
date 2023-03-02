@@ -28,5 +28,5 @@ $$
 $$
 
 $$
-\text{permutations\_W}(N, M) = \text{permutations}(N, M, 1, [\text{candidate}(N)])
+\text{permutations⎽W}(N, M) = \text{permutations}(N, M, 1, [\text{candidate}(N)])
 $$

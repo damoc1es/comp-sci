@@ -16,12 +16,12 @@ $$
 #### b) Să se construiască o funcție care întoarce suma atomilor numerici dintr-o listă, de la orice nivel.
 
 $$
-\text{sum\_atoms}(l_1 \, l_2 \dots l_n) =
+\text{sum⎽atoms}(l_1 \, l_2 \dots l_n) =
 \begin{cases}
     0, & n = 0 \\
-    \text{sum\_atoms}(l_1) + \text{sum\_atoms}(l_2 \dots l_n) , & \text{$l_1$ - list} \\
-    l_1 + \text{sum\_atoms}(l_2 \dots l_n), & \text{$l_1$ - number} \\
-    \text{sum\_atoms}(l_2 \dots l_n), & \text{altfel}
+    \text{sum⎽atoms}(l_1) + \text{sum⎽atoms}(l_2 \dots l_n) , & l_1\text{ - list} \\
+    l_1 + \text{sum⎽atoms}(l_2 \dots l_n), & l_1 \text{ - number} \\
+    \text{sum⎽atoms}(l_2 \dots l_n), & \text{altfel}
 \end{cases}
 $$
 
@@ -40,14 +40,14 @@ $$
 
 #### d) Să se scrie o funcție care testează egalitatea a două mulțimi, fără să se facă apel la diferența a două mulțimi.
 
-$$ \text{equal\_sets\_W}(L, R) = \text{equal\_sets}(L, R, L) $$
+$$ \text{equal⎽sets⎽W}(L, R) = \text{equal⎽sets}(L, R, L) $$
 
 $$
-\text{equal\_sets}(l_1 \, l_2 \dots l_n, r_1 \, r_2 \dots r_m, C) =
+\text{equal⎽sets}(l_1 \, l_2 \dots l_n, r_1 \, r_2 \dots r_m, C) =
 \begin{cases}
     True, & n = 0 \wedge m = 0\\
-    \text{equal\_sets}(\varnothing, r_2 \dots r_m, C) , & n = 0 \wedge \text{appears}(C, r_1) \\
-    \text{equal\_sets}(l_2 \dots l_n, r_1 \, r_2 \dots r_m, C), & \text{appears}(r_1 \, r_2 \dots r_m, l_1) \\
+    \text{equal⎽sets}(\varnothing, r_2 \dots r_m, C) , & n = 0 \wedge \text{appears}(C, r_1) \\
+    \text{equal⎽sets}(l_2 \dots l_n, r_1 \, r_2 \dots r_m, C), & \text{appears}(r_1 \, r_2 \dots r_m, l_1) \\
     False, & \text{altfel}
 \end{cases}
 $$
