@@ -21,3 +21,4 @@ Public version of my repository that contains homeworks, projects and various ta
 | III | Functional and Logic Programming [flp](sem3/flp) | Prolog & Common Lisp |
 | III | Computer Networks [cn](sem3/cn) | C |
 | III | Probability and Statistics [ps](sem3/ps) | MATLAB/Octave |
+| IV | Artificial Intelligence [ai](sem4/ai) | Python |
