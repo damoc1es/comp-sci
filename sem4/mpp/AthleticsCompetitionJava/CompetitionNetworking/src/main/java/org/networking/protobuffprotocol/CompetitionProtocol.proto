@@ -1,0 +1,66 @@
+syntax="proto3";
+package competition.protocol;
+
+option java_package = "org.networking.protobuffprotocol";
+option java_outer_classname = "CompProtobufs";
+
+message AgeGroup {
+  string id=1;
+  int32 minAge=2;
+  int32 maxAge=3;
+}
+
+message Event {
+  string id=1;
+  int32 meters=2;
+}
+
+message AllowedGroup {
+  string id=1;
+  AgeGroup ageGroup=2;
+  Event event=3;
+}
+
+message Child {
+  string id=1;
+  string name=2;
+  int32 age=3;
+}
+
+message Organiser {
+  string id=1;
+  string username=2;
+  string password=3;
+}
+
+message Request {
+  enum Type { Unknown=0; GetAgeGroups=1; GetAllEvents=2; GetChildrenByEvent=3; GetChildrenFromAgeGroupAndEvent=4;
+  GetChildren=5; GetEventsByChildren=6; GetEventTypesForAgeGroup=7; Login=8; Logout=9; RegisterChild=10; }
+
+  // Identifies which request is filled in.
+  Type type=1;
+
+  // One of the following will be filled in, depending on the type.
+  AgeGroup ageGroup=2;
+  Event event=3;
+  Organiser organiser=4;
+  string name=5;
+  int32 age=6;
+}
+
+message Response {
+  enum Type { Unknown=0; Ok=1; Error=2; GetAgeGroups=3; GetAllEvents=4; GetChildrenByEvent=5; GetChildrenFromAgeGroupAndEvent=6;
+    GetChildren=7; GetEventsByChildren=8; GetEventTypesForAgeGroup=9; ChildRegistered=10; }
+
+  Type type=1;
+
+  // One of the following will be filled in, depending on the type.
+  string error=2;
+  Child child=3;
+  AllowedGroup allowedGroup=4;
+  repeated AgeGroup ageGroups=5;
+  repeated Event events=6;
+  repeated Child children=7;
+  repeated AllowedGroup allowedGroups=8;
+  repeated int32 counts=9;
+}

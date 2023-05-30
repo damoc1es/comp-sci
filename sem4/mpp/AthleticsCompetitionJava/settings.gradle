@@ -1,0 +1,8 @@
+rootProject.name = 'AthleticsCompetition'
+include 'CompetitionModel'
+include 'CompetitionServer'
+include 'CompetitionServices'
+include 'CompetitionClient'
+include 'CompetitionNetworking'
+include 'CompetitionREST'
+
