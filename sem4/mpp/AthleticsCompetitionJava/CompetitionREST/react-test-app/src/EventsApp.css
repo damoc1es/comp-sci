@@ -1,0 +1,35 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+}
+
+.EventsApp {
+    text-align: center;
+    align-content: center;
+    color: #ffffff;
+}
+
+.EventsApp-h1 {
+    text-align: center;
+    font-size: large;
+
+}
+.EventsTable {
+    text-align: center;
+    font-size: medium;
+    color: #ffffff;
+}
+
+th {
+    padding: 1em;
+}
+
+.EventsApp-body {
+    align-content: center;
+}
+
+table.center {
+    margin-left:auto;
+    margin-right:auto;
+}
