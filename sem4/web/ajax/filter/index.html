@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+        font-family: sans-serif;
+        background-color: black;
+        color: white;
+    }
+
+    table, th, td {
+        border: 1px solid white;
+        border-collapse: collapse;
+        padding: 5px;
+        color: white;
+        background-color: black;
+    }
+
+    th {
+        background-color: #30637a;
+        color: white;
+    }
+
+    th, td {
+        text-align: left;
+    }
+    
+    div {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+    }
+    
+    select {
+        background-color: #30637a;
+        color: white;
+        border: none;
+        padding: 0.6em 0.8em;
+        border-radius: 0.8em;
+    }
+</style>
+
+</head>
+
+<!--
+
+CREATE TABLE LabAJAX.Notebook (
+    nume varchar(255),
+    producator varchar(255),
+    procesor varchar(255),
+    memorie integer,
+    placa_video varchar(255)
+);
+
+INSERT INTO LabAJAX.Notebook(nume, producator, procesor, memorie, placa_video)
+VALUES ('fdsijgiodsjg', 'Asus', 'i5', 16, 'nvidia'),
+('blalblbalbla', 'Asus', 'i7', 8, 'nvidia'),
+('dsgsfhfsgds', 'Acer', 'i5', 16, 'nvidia'),
+('rqerfwtegtwed', 'HP', 'i5', 8, 'amd'),
+('gdhfjhdfhjd', 'Asus', 'i7', 16, 'amd'),
+('ewrwqeyrew', 'Acer', 'i7', 8, 'amd');
+
+-->
+
+<body>
+    <div>
+        <select id="Producator"></select>
+        <select id="Procesor"></select>
+        <select id="Memorie"></select>
+        <select id="PlacaVideo"></select>
+    </div>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Producator</th>
+            <th>Procesor</th>
+            <th>Memorie</th>
+            <th>Placa Video</th>
+        </tr>
+        <tbody id="Notebook"></tbody>
+    </table>
+
+<script>
+
+function getComboValues() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            let values = JSON.parse(this.responseText);
+            console.log(values);
+            let producator = document.getElementById("Producator");
+            let procesor = document.getElementById("Procesor");
+            let memorie = document.getElementById("Memorie");
+            let placa_video = document.getElementById("PlacaVideo");
+
+            console.log(values['producator'])
+            let option = document.createElement("option"); option.text = "";
+            producator.add(option);
+            option = document.createElement("option"); option.text = "";
+            procesor.add(option);
+            option = document.createElement("option"); option.text = "";
+            memorie.add(option);
+            option = document.createElement("option"); option.text = "";
+            placa_video.add(option);
+            for(let i in values['producator']) {
+                let option = document.createElement("option");
+                option.text = values['producator'][i];
+                producator.add(option);
+            }
+            for(let i in values['procesor']) {
+                let option = document.createElement("option");
+                option.text = values['procesor'][i];
+                procesor.add(option);
+            }
+            for(let i in values['memorie']) {
+                let option = document.createElement("option");
+                option.text = values['memorie'][i];
+                memorie.add(option);
+            }
+            for(let i in values['placa_video']) {
+                let option = document.createElement("option");
+                option.text = values['placa_video'][i];
+                placa_video.add(option);
+            }
+        }
+    };
+    xhttp.open("GET", "getValues.php", true);
+    xhttp.send();
+}
+getComboValues();
+
+function getNotebooks() {
+    let producator = document.getElementById("Producator").value;
+    let procesor = document.getElementById("Procesor").value;
+    let memorie = document.getElementById("Memorie").value;
+    let placa_video = document.getElementById("PlacaVideo").value;
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            let notebook = JSON.parse(this.responseText);
+            console.log(notebook)
+            let table = document.getElementById("Notebook");
+            table.innerHTML = "";
+            for(let i = 0; i < notebook.length; i++) {
+                let row = table.insertRow(i);
+                let cell1 = row.insertCell(0);
+                cell1.innerHTML = notebook[i].nume;
+                let cell2 = row.insertCell(1);
+                cell2.innerHTML = notebook[i].producator;
+                let cell3 = row.insertCell(2);
+                cell3.innerHTML = notebook[i].procesor;
+                let cell4 = row.insertCell(3);
+                cell4.innerHTML = notebook[i].memorie;
+                let cell5 = row.insertCell(4);
+                cell5.innerHTML = notebook[i].placa_video;
+            }
+        }
+    };
+    let request = "getItems.php?";
+    if(producator != "") {
+        request += "producator=" + producator;
+    }
+    if(procesor != "") {
+        request += "&procesor=" + procesor;
+    }
+    if(memorie != "") {
+        request += "&memorie=" + memorie;
+    }
+    if(placa_video != "") {
+        request += "&placa_video=" + placa_video;
+    }
+    xhttp.open("GET", request, true);
+    xhttp.send();
+}
+
+getNotebooks();
+
+document.getElementById("Producator").addEventListener("change", getNotebooks);
+document.getElementById("Procesor").addEventListener("change", getNotebooks);
+document.getElementById("Memorie").addEventListener("change", getNotebooks);
+document.getElementById("PlacaVideo").addEventListener("change", getNotebooks);
+
+</script>
+</body>
+
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+            background-color: black;
+        }
+        option {
+            font-size: 2em;
+            background-color: black;
+            color: white;
+        }
+        select {
+            background-color: black;
+            height: auto;
+        }
+
+    </style>
+    <script src="jquery-3.6.4.min.js"></script>
+</head>
+
+<!--
+
+CREATE DATABASE LabAJAX;
+CREATE TABLE LabAJAX.OraseDrumuri (
+    plecare varchar(255),
+    sosire varchar(255)
+);
+
+INSERT INTO OraseDrumuri(plecare, sosire)
+VALUES ('Oras1', 'Oras2'), ('Oras1', 'Oras3'), ('Oras2', 'Oras4'), ('Oras2', 'Oras5'), ('Oras6', 'Oras7');
+
+-->
+
+<body>
+
+    <select multiple id="OrasePlecare">
+    </select>
+
+    <select multiple id="OraseSosire">
+    </select>
+
+    <script>
+        function loadOrasePlecare() {
+            $.get("getOrasePlecare.php", function(data, status) {
+                let cities = JSON.parse(data);
+                for(var i in cities) {
+                    let option = document.createElement("option");
+                    option.text = cities[i];
+                    document.getElementById("OrasePlecare").add(option);
+                }
+            });
+        }
+        
+        function loadOraseSosire(orasPlecare) {
+            $.post("getOraseSosire.php?plecare=" + orasPlecare, function(data, status) {
+                let cities = JSON.parse(data);
+                console.log(cities)
+                document.getElementById("OraseSosire").innerHTML = "";
+                for(var i in cities) {
+                    let option = document.createElement("option");
+                    option.text = cities[i];
+                    document.getElementById("OraseSosire").add(option);
+                }
+            });
+        }
+
+        document.getElementById("OrasePlecare").addEventListener("change", function() {
+            loadOraseSosire(this.value);
+        });
+        
+        loadOrasePlecare();
+    </script>
+</body>
+
+</html>

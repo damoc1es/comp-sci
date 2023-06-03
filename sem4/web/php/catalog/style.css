@@ -1,0 +1,73 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Segoe UI Light, sans-serif;
+    background-color: #000;
+    color: #fff;
+    font-size: 1.2em;
+}
+
+section, main, #Validari {
+    width: min(100%, 600px);
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    border-radius: 1em;
+    padding: 1em;
+    background-color: #414141;
+    color: #fff;
+    border: none;
+    outline: none;
+}
+
+input {
+    width: 100%;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: #414141;
+    color: #fff;
+    border: none;
+    outline: none;
+}
+
+input[type="submit"], button {
+    background-color: #414141;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 1em;
+    border-radius: 1em;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover, button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+select {
+    background-color: #414141;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 1em;
+    border-radius: 1em;
+    cursor: pointer;
+}
+
+#setMarks form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            /* display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; */
+            font-family: sans-serif;
+            color: white;
+            gap: 1em;
+            background-color: black;
+        }
+        option {
+            font-size: 2em;
+        }
+
+        select {
+            height: auto;
+        }
+
+        button {
+            background-color: #30637a;
+            color: white;
+            border: none;
+            padding: 0.6em 0.8em;
+            border-radius: 0.8em;
+        }
+        button:disabled {
+            background-color: #4f4f4f;
+        }
+    </style>
+
+</head>
+
+<!--
+
+CREATE TABLE LabAJAX.Tari (
+    id int primary key auto_increment,
+    nume varchar(255),
+    suprafata int
+);
+
+INSERT INTO LabAJAX.Tari(nume, suprafata)
+VALUES ('Romania', 238000), ('Germania', 500000), ('Spania', 600000), ('Italia', 700000);
+
+-->
+
+<body>
+
+    <select multiple id="Ids">
+    </select>
+    <br><br>
+    <label for="Nume">Name</label> <input id="Nume"><br><br>
+    <label for="Suprafata">Surface</label> <input id="Suprafata" type="number"><br><br>
+    <button id="SaveBtn">Save</button>
+
+
+    <script>
+        function loadIds() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let cities = JSON.parse(this.responseText);
+                    // console.log(cities);
+                    for(var i in cities) {
+                        let option = document.createElement("option");
+                        option.text = cities[i];
+                        document.getElementById("Ids").add(option);
+                    }
+                }
+            };
+            xhttp.open("GET", "getIds.php", true);
+            xhttp.send();
+        }
+        loadIds();
+
+        function loadDate(value) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let cities = JSON.parse(this.responseText)[0];
+                    console.log(cities);
+                    document.getElementById("Nume").value = cities['nume'];
+                    document.getElementById("Suprafata").value = cities['suprafata'];
+                }
+            };
+            xhttp.open("GET", "getDate.php?id=" + value, true);
+            xhttp.send();
+        }
+
+        document.getElementById("Ids").addEventListener("change", function() {
+            loadDate(this.value);
+        });
+
+        document.getElementById("Nume").addEventListener("keyup", function() {
+            if(document.getElementById("Ids").value != "") {
+                document.getElementById("SaveBtn").disabled = false;
+            }
+        });
+        document.getElementById("Suprafata").addEventListener("keyup", function() {
+            if(document.getElementById("Ids").value != "") {
+                document.getElementById("SaveBtn").disabled = false;
+            }
+        });
+        
+        document.getElementById("SaveBtn").disabled = true;
+    
+        document.getElementById("SaveBtn").addEventListener("click", function() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) { 
+                    console.log(this.responseText);
+                    alert("Datele au fost salvate cu succes!");
+                } else if(this.readyState == 4) {
+                    alert(this.status + " | Datele nu au fost salvate cu succes!");
+                }
+            };
+            xhttp.open("POST", "saveDate.php?id=" + document.getElementById("Ids").value + "&nume=" + document.getElementById("Nume").value + "&suprafata=" + document.getElementById("Suprafata").value, true);
+            xhttp.send();
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1em;
+            font-family: sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        table, th, td {
+            border: 1px solid white;
+            border-collapse: collapse;
+            padding: 5px;
+            color: white;
+            background-color: black;
+        }
+
+        th {
+            background-color: #30637a;
+            color: white;
+        }
+
+        th, td {
+            text-align: left;
+        }
+        button {
+            background-color: #30637a;
+            color: white;
+            border: none;
+            padding: 0.6em 0.8em;
+            border-radius: 0.8em;
+        }
+        button:disabled {
+            background-color: #4f4f4f;
+        }
+    </style>
+</head>
+
+<!--
+
+CREATE TABLE LabAJAX.Clienti (
+    nume varchar(255),
+    prenume varchar(255),
+    telefon varchar(255),
+    email varchar(255)
+);
+
+INSERT INTO LabAJAX.Clienti(nume, prenume, telefon, email)
+VALUES ('Doe1', 'John1', '0771123123', 'johndoe1@example.com'),
+('Doe2', 'John2', '0772123123', 'johndoe2@example.com'),
+('Doe3', 'John3', '0773123123', 'johndoe3@example.com'),
+('Doe4', 'John4', '0774123123', 'johndoe4@example.com'),
+('Doe5', 'John5', '0775123123', 'johndoe5@example.com'),
+('Doe6', 'John6', '0776123123', 'johndoe6@example.com'),
+('Doe7', 'John7', '0777123123', 'johndoe7@example.com');
+
+-->
+
+<body>
+    <div>
+        <button id="Prev" onclick="prevPage()">Previous</button>
+        <button id="Next" onclick="nextPage()">Next</button>
+    </div>
+    <table id="Users">
+        <tr>
+            <th>Nume</th>
+            <th>Prenume</th>
+            <th>Telefon</th>
+            <th>E-mail</th>
+        </tr>
+    </table>
+    <script>
+        let page = 0;
+
+        function updateButtons() {
+            let table = document.getElementById("Users");
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let users = JSON.parse(this.responseText);
+                    if(users.length > 0) {
+                        document.getElementById("Next").disabled = false;
+                    }
+                    else {
+                        document.getElementById("Next").disabled = true;
+                    }
+                }
+            };
+            xhttp.open("GET", "getClienti.php?page=" + (page+1), true);
+            xhttp.send();
+
+            let xhttp2 = new XMLHttpRequest();
+            xhttp2.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let users = JSON.parse(this.responseText);
+                    if(users.length > 0) {
+                        document.getElementById("Prev").disabled = false;
+                    }
+                    else {
+                        document.getElementById("Prev").disabled = true;
+                    }
+                }
+            };
+            xhttp2.open("GET", "getClienti.php?page=" + (page-1), true);
+            xhttp2.send();
+        }
+
+        function loadClienti() {
+            $.post("getClienti.php?page=" + page, function(data, status) {
+                
+                let table = document.getElementById("Users");
+                let users = JSON.parse(data);
+                console.log(users);
+                for (var i in users) {
+                    let row = table.insertRow(-1);
+                    let cell1 = row.insertCell(0);
+                    let cell2 = row.insertCell(1);
+                    let cell3 = row.insertCell(2);
+                    let cell4 = row.insertCell(3);
+                    cell1.innerHTML = users[i].nume;
+                    cell2.innerHTML = users[i].prenume;
+                    cell3.innerHTML = users[i].telefon;
+                    cell4.innerHTML = users[i].email;
+                }
+            });
+            updateButtons();
+        }
+        loadClienti();
+
+        function prevPage() {
+            page--;
+            let table = document.getElementById("Users");
+            table.innerHTML = `        <tr>
+            <th>Nume</th>
+            <th>Prenume</th>
+            <th>Telefon</th>
+            <th>E-mail</th>
+        </tr>`;
+            loadClienti();
+        }
+
+        function nextPage() {
+            page++;
+            let table = document.getElementById("Users");
+            table.innerHTML = `        <tr>
+            <th>Nume</th>
+            <th>Prenume</th>
+            <th>Telefon</th>
+            <th>E-mail</th>
+        </tr>`;
+            loadClienti();
+        }
+    </script>
+</body>
+
+
+</html>

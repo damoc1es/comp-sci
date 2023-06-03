@@ -20,5 +20,7 @@ Public version of my repository that contains homeworks, projects and various ta
 | III | Advanced Programming Methods [map](sem3/map) | Java |
 | III | Functional and Logic Programming [flp](sem3/flp) | Prolog & Common Lisp |
 | III | Computer Networks [cn](sem3/cn) | C |
-| III | Probability and Statistics [ps](sem3/ps) | MATLAB/Octave |
+| III | Probability and Statistics [ps](sem3/ps) | Octave |
 | IV | Artificial Intelligence [ai](sem4/ai) | Python |
+| IV | Systems for Design and Implementation [mpp](sem4/mpp) | Java & C# |
+| IV | Web Programming [web](sem4/web) | HTML, CSS, JS & PHP |

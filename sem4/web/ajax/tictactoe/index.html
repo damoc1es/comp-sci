@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            color: white;
+            gap: 1em;
+            background-color: black;
+        }
+
+        #Table {
+            font-family: sans-serif;
+            display: inline-grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            font-size: 2em;
+            background-color: black;
+        }
+
+        #Table div, #Table button {
+            color: white;
+            padding: 2em;
+            border: 1px solid white;
+            border-collapse: collapse;
+        }
+
+        #Table div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #Table button {
+            background-color: #28488d;
+            border: 1px solid white;
+            color: white;
+            padding: 0.6em 0.8em;
+            font-size: 2em;
+        }
+
+        #Table button:hover {
+            background-color: #3a65c0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="Table"></div>
+
+    <script>
+        let tableState = '_________';
+        let player = Math.floor(Math.random() * 2) == 0 ? 'X' : '0';
+        let computer = player == 'X' ? '0' : 'X';
+        
+
+        function getMove() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let next = parseInt(this.responseText);
+                    console.log(next);
+                    tableState = tableState.substring(0, next) + computer + tableState.substring(next+1);
+                    
+                    console.log(tableState);
+                    loadTable(true);
+                    verify("computer");
+                }
+            };
+            xhttp.open("GET", "getMove.php?board=" + tableState, true);
+            xhttp.send();
+        }
+
+        function verify(who) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let winner = this.responseText;
+                    if(winner == "nowin") {
+                        if(who == "player")
+                            getMove();
+                    } else if(winner == "nomoves") {
+                        alert("No more moves. Draw.");
+                    } else {
+                        alert("Winner is " + winner + "!");
+                    }
+                }
+            };
+            xhttp.open("POST", "getState.php?board=" + tableState, true);
+            xhttp.send();
+        }
+
+        function move(pos) {
+            tableState = tableState.substring(0, pos) + player + tableState.substring(pos+1);
+            loadTable(false);
+            console.log("ce");
+            verify("player");
+        }
+
+        function loadTable(putBtns) {
+            document.getElementById("Table").innerHTML = "";
+            for(let i = 0; i<9; i++) {
+                if(tableState[i] == '0' || tableState[i] == 'X') {
+                    let div = document.createElement("div");
+                    div.innerHTML = tableState[i];
+                    document.getElementById("Table").appendChild(div);
+                } else if(putBtns == true) {
+                    let btn = document.createElement("button");
+                    btn.onclick = function() {
+                        move(i);
+                    };
+                    btn.innerHTML = " ";
+                    document.getElementById("Table").appendChild(btn);
+                } else {
+                    let div = document.createElement("div");
+                    div.innerHTML = "   ";
+                    document.getElementById("Table").appendChild(div);
+                }
+            }
+        }
+        
+        if(computer == 'X') {
+            getMove();
+        }
+        else loadTable(true);
+    </script>
+
+</body>
+
+</html>
